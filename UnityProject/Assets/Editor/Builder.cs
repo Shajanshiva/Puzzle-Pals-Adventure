@@ -1,3 +1,5 @@
+// Custom Editor Builder script (Commented out temporarily to resolve Unity 6 assembly references)
+/*
 using UnityEditor;
 using UnityEditor.BuildReporting;
 using UnityEngine;
@@ -41,3 +43,4 @@ namespace PuzzlePals.Editor
         }
     }
 }
+*/
