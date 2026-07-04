@@ -95,7 +95,7 @@ namespace PuzzlePals.Player
             if (direction.magnitude >= 0.1f)
             {
                 // Align to camera direction or isometric rotation
-                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.RadDeg;
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, targetAngle, 0), Time.fixedDeltaTime * 15f);
 
                 Vector3 targetVelocity = direction * moveSpeed;

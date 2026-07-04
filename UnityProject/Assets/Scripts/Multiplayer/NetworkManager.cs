@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using PuzzlePals.Core;
 // Photon Fusion imports
 // using Fusion;
 // using Fusion.Sockets;

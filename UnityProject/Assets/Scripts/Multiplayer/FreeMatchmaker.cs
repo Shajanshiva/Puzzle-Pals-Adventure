@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using PuzzlePals.Backend;
+using PuzzlePals.Core;
 
 namespace PuzzlePals.Multiplayer
 {
