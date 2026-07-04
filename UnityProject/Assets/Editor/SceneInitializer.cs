@@ -21,25 +21,45 @@ namespace PuzzlePals.Editor
             {
                 AssetDatabase.CreateFolder("Assets", "Scenes");
             }
+            if (!AssetDatabase.IsValidFolder("Assets/UI"))
+            {
+                AssetDatabase.CreateFolder("Assets", "UI");
+            }
 
             Debug.Log("[SceneInitializer] Starting automatic scene generation...");
 
+            // Create PanelSettings if it doesn't exist
+            string settingsPath = "Assets/UI/PanelSettings.asset";
+            PanelSettings panelSettings = AssetDatabase.LoadAssetAtPath<PanelSettings>(settingsPath);
+            if (panelSettings == null)
+            {
+                panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
+                panelSettings.scaleMode = PanelScaleMode.ScaleWithScreenSize;
+                panelSettings.referenceResolution = new Vector2Int(1920, 1080);
+                panelSettings.screenMatchMode = PanelScreenMatchMode.MatchWidthOrHeight;
+                panelSettings.match = 0.5f;
+
+                AssetDatabase.CreateAsset(panelSettings, settingsPath);
+                AssetDatabase.SaveAssets();
+                Debug.Log("[SceneInitializer] Created new PanelSettings asset for mobile scaling.");
+            }
+
             // 2. Create MainMenuScene
-            CreateMainMenuScene();
+            CreateMainMenuScene(panelSettings);
 
             // 3. Create Levels
-            CreateLevelScene(1, "First Steps", 15f);
-            CreateLevelScene(2, "Double Trouble", 25f);
-            CreateLevelScene(3, "The Great Wall", 35f);
+            CreateLevelScene(1, "First Steps", panelSettings);
+            CreateLevelScene(2, "Double Trouble", panelSettings);
+            CreateLevelScene(3, "The Great Wall", panelSettings);
 
             // 4. Update Build Settings
             UpdateBuildSettings();
 
             Debug.Log("[SceneInitializer] Success! All scenes created and added to Build Settings.");
-            EditorUtility.DisplayDialog("Success", "All scenes (MainMenuScene, Level_1, Level_2, Level_3) generated successfully and registered in Build Settings!", "OK");
+            EditorUtility.DisplayDialog("Success", "All scenes (MainMenuScene, Level_1, Level_2, Level_3) generated successfully with responsive Panel Settings and registered in Build Settings!", "OK");
         }
 
-        private static void CreateMainMenuScene()
+        private static void CreateMainMenuScene(PanelSettings panelSettings)
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
             
@@ -57,6 +77,7 @@ namespace PuzzlePals.Editor
             // Create UI GameObject
             GameObject uiObj = new GameObject("MainMenuUI");
             var uiDoc = uiObj.AddComponent<UIDocument>();
+            uiDoc.panelSettings = panelSettings;
             var controller = uiObj.AddComponent<MainMenuController>();
 
             // Load UXML asset
@@ -75,7 +96,7 @@ namespace PuzzlePals.Editor
             EditorSceneManager.SaveScene(scene, "Assets/Scenes/MainMenuScene.unity");
         }
 
-        private static void CreateLevelScene(int index, string levelName, float offsetHeight)
+        private static void CreateLevelScene(int index, string levelName, PanelSettings panelSettings)
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
 
@@ -86,6 +107,7 @@ namespace PuzzlePals.Editor
             // Add UI HUD
             GameObject hudObj = new GameObject("GameHUDUI");
             var uiDoc = hudObj.AddComponent<UIDocument>();
+            uiDoc.panelSettings = panelSettings;
             var controller = hudObj.AddComponent<GameHUDController>();
 
             // Load HUD UXML asset
@@ -114,11 +136,10 @@ namespace PuzzlePals.Editor
             plateTrigger.isTrigger = true;
             
             var plateElem = pressurePlate.AddComponent<PuzzleElement>();
-            // Set properties using serialized fields or standard API (mock setting for now)
             SetPrivateField(plateElem, "puzzleId", $"plate_{index}");
             SetPrivateField(plateElem, "elementType", PuzzleElementType.PressurePlate);
 
-            // sliding Door Obstacle
+            // Sliding Door Obstacle
             GameObject door = GameObject.CreatePrimitive(PrimitiveType.Cube);
             door.name = "SlidingDoor_Obstacle";
             door.transform.position = new Vector3(3f, 2.5f, 0f);
@@ -128,7 +149,7 @@ namespace PuzzlePals.Editor
             var doorElem = door.AddComponent<PuzzleElement>();
             SetPrivateField(doorElem, "puzzleId", $"door_{index}");
             SetPrivateField(doorElem, "elementType", PuzzleElementType.SlidingDoor);
-            SetPrivateField(doorElem, "activeOffset", new Vector3(0f, 4f, 0f)); // slides up 4 units
+            SetPrivateField(doorElem, "activeOffset", new Vector3(0f, 4f, 0f));
             SetPrivateField(doorElem, "moveSpeed", 3f);
             
             // Link pressure plate to door
@@ -143,8 +164,6 @@ namespace PuzzlePals.Editor
             goal.GetComponent<Renderer>().sharedMaterial.color = Color.yellow;
             var goalCol = goal.GetComponent<BoxCollider>();
             goalCol.isTrigger = true;
-            
-            // Add a simple goal component that calls level completion
             goal.AddComponent<GoalTrigger>();
 
             // Save the scene
@@ -163,7 +182,6 @@ namespace PuzzlePals.Editor
             AssetDatabase.SaveAssets();
         }
 
-        // Helper using reflection to set private serializable fields
         private static void SetPrivateField(object target, string fieldName, object value)
         {
             var field = target.GetType().GetField(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -174,7 +192,6 @@ namespace PuzzlePals.Editor
         }
     }
 
-    // A helper trigger class to finish levels when players enter the goal zone
     public class GoalTrigger : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)
