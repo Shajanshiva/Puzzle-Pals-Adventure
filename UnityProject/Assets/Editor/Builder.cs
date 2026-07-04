@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.BuildReporting;
 using UnityEngine;
 
 namespace PuzzlePals.Editor
@@ -29,11 +30,11 @@ namespace PuzzlePals.Editor
             var report = BuildPipeline.BuildPlayer(buildPlayerOptions);
             var summary = report.summary;
 
-            if (summary.result == UnityEditor.BuildReporting.BuildResult.Succeeded)
+            if (summary.result == BuildResult.Succeeded)
             {
                 Debug.Log($"[Builder] Build Succeeded! Output path: {buildPath}");
             }
-            else if (summary.result == UnityEditor.BuildReporting.BuildResult.Failed)
+            else if (summary.result == BuildResult.Failed)
             {
                 Debug.LogError($"[Builder] Build Failed! Errors: {summary.totalErrors}");
             }
