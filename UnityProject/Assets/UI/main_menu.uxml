@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="Styles" src="styles.uss" />
+    <ui:VisualElement class="bg-gradient" style="flex-grow: 1; align-items: center; justify-content: center;">
+        
+        <!-- MAIN TITLE SECTION -->
+        <ui:VisualElement id="title-screen" style="align-items: center; justify-content: center; width: 100%; height: 100%;">
+            <ui:Label text="Puzzle Pals Adventure" class="text-title" style="-unity-font-style: bold;" />
+            
+            <!-- Login Forms Panel -->
+            <ui:VisualElement id="login-panel" class="glass-panel" style="width: 450px;">
+                <ui:Label text="Account Login" class="text-header" style="align-self: center; margin-bottom: 15px;" />
+                
+                <ui:TextField id="input-email" label="Email" class="text-field-custom" />
+                <ui:TextField id="input-password" label="Password" is-password-field="true" class="text-field-custom" />
+                
+                <ui:Button id="btn-email-login" text="Sign In" class="button-primary" />
+                <ui:Button id="btn-email-register" text="Register" class="button-secondary" />
+                
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-top: 15px;">
+                    <ui:Button id="btn-google-login" text="Google Login" class="button-secondary" style="flex-grow: 1;" />
+                    <ui:Button id="btn-guest-login" text="Guest Login" class="button-secondary" style="flex-grow: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Lobby Options Panel (Hidden by default, shown after login) -->
+            <ui:VisualElement id="lobby-panel" class="glass-panel" style="width: 500px; display: none;">
+                <ui:Label id="welcome-label" text="Welcome, Player!" class="text-header" style="align-self: center; margin-bottom: 20px;" />
+                
+                <ui:Button id="btn-matchmaking" text="Find Public Match" class="button-primary" />
+                
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <ui:Button id="btn-create-room" text="Create Room" class="button-secondary" style="flex-grow: 1;" />
+                    <ui:Button id="btn-join-room" text="Join Room" class="button-secondary" style="flex-grow: 1;" />
+                </ui:VisualElement>
+
+                <ui:TextField id="input-room-code" label="Room Code" maxLength="6" class="text-field-custom" style="margin-top: 15px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- FRIENDS SIDE BAR PANEL (Toggled open/close) -->
+        <ui:VisualElement id="friends-panel" class="glass-panel" style="position: absolute; right: 20px; top: 20px; width: 300px; height: 90%; display: none;">
+            <ui:Label text="Friends" class="text-header" style="border-bottom-width: 1px; border-bottom-color: white; padding-bottom: 10px;" />
+            
+            <ui:ScrollView id="friends-list" style="flex-grow: 1; margin-top: 10px;">
+                <!-- Dynamically populated via FriendProfile C# scripts -->
+            </ui:ScrollView>
+            
+            <ui:TextField id="input-add-friend-id" label="Friend ID" class="text-field-custom" />
+            <ui:Button id="btn-add-friend" text="Send Request" class="button-secondary" />
+        </ui:VisualElement>
+
+        <!-- SETTINGS PANEL (Popup Dialog) -->
+        <ui:VisualElement id="settings-popup" class="glass-panel" style="position: absolute; width: 450px; display: none; align-self: center;">
+            <ui:Label text="Game Settings" class="text-header" style="align-self: center; margin-bottom: 15px;" />
+            
+            <!-- Language Dropdown selector -->
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <ui:Label text="Language / மொழி" class="text-normal" />
+                <ui:Button id="btn-lang-en" text="English" class="button-secondary" />
+                <ui:Button id="btn-lang-ta" text="தமிழ்" class="button-secondary" />
+            </ui:VisualElement>
+
+            <!-- Sound controls -->
+            <ui:Slider label="Music Volume" id="slider-music" low-value="0" high-value="1" value="0.75" />
+            <ui:Slider label="SFX Volume" id="slider-sfx" low-value="0" high-value="1" value="0.8" />
+
+            <!-- Graphics control -->
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <ui:Label text="Graphics Level" class="text-normal" />
+                <ui:Button id="btn-gfx-low" text="Low" class="button-secondary" />
+                <ui:Button id="btn-gfx-med" text="Medium" class="button-secondary" />
+                <ui:Button id="btn-gfx-high" text="High" class="button-secondary" />
+            </ui:VisualElement>
+
+            <ui:Button id="btn-settings-close" text="Save &amp; Close" class="button-primary" style="margin-top: 25px; align-self: center;" />
+        </ui:VisualElement>
+
+        <!-- General UI Buttons at bottom -->
+        <ui:VisualElement style="position: absolute; bottom: 20px; right: 20px; flex-direction: row;">
+            <ui:Button id="btn-toggle-friends" text="Friends" class="button-secondary" />
+            <ui:Button id="btn-toggle-settings" text="Settings" class="button-secondary" />
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

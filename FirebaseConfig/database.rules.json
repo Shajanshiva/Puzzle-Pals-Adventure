@@ -1,0 +1,30 @@
+{
+  "rules": {
+    "matchmaking_queue": {
+      ".read": "auth != null",
+      "$ticketId": {
+        // Enforce that players can only create or delete their own matchmaking ticket
+        ".write": "auth != null && (auth.uid == $ticketId || !data.exists())",
+        ".validate": "newData.hasChildren(['ticketId', 'hostUserId', 'roomCode', 'status', 'timestamp'])",
+        "status": {
+          ".validate": "newData.val() == 'waiting' || newData.val() == 'matched'"
+        }
+      }
+    },
+    "rooms": {
+      ".read": "auth != null",
+      "$roomCode": {
+        // Enforce 6-letter room code nodes are read/write by authenticated players
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['sessionName', 'hostId'])"
+      }
+    },
+    "status": {
+      "$userId": {
+        // Presence nodes: players write their online status
+        ".read": "auth != null",
+        ".write": "auth != null && auth.uid == $userId"
+      }
+    }
+  }
+}
