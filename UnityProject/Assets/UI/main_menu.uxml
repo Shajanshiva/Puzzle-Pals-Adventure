@@ -73,7 +73,7 @@
                 <ui:Button id="btn-gfx-high" text="High" class="button-secondary" />
             </ui:VisualElement>
 
-            <ui:Button id="btn-settings-close" text="Save &amp; Close" class="button-primary" style="margin-top: 25px; align-self: center;" />
+            <ui:Button id="btn-settings-close" text="Save and Close" class="button-primary" style="margin-top: 25px; align-self: center;" />
         </ui:VisualElement>
 
         <!-- General UI Buttons at bottom -->
