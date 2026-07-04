@@ -7,10 +7,10 @@
         <ui:VisualElement class="hud-hudbar" style="pointer-events: auto;">
             <!-- Left Group: Level name & Coins -->
             <ui:VisualElement style="flex-direction: row;">
-                <ui:Label id="hud-level-name" text="Level 1: First Steps" class="text-header" style="margin-right: 20px;" />
+                <ui:Label name="hud-level-name" text="Level 1: First Steps" class="text-header" style="margin-right: 20px;" />
                 <ui:VisualElement class="hud-stat-box">
                     <ui:Label text="Coins: " class="text-normal" style="color: #ffcb05;" />
-                    <ui:Label id="hud-coins-val" text="00" class="text-normal" style="-unity-font-style: bold;" />
+                    <ui:Label name="hud-coins-val" text="00" class="text-normal" style="-unity-font-style: bold;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             
@@ -18,23 +18,23 @@
             <ui:VisualElement style="flex-direction: row; align-items: center;">
                 <ui:VisualElement class="hud-stat-box">
                     <ui:Label text="Stars: " class="text-normal" />
-                    <ui:Label id="hud-stars-val" text="★★★" class="text-normal" style="color: #ffcb05;" />
+                    <ui:Label name="hud-stars-val" text="★★★" class="text-normal" style="color: #ffcb05;" />
                 </ui:VisualElement>
                 <ui:VisualElement class="hud-stat-box">
                     <ui:Label text="Time: " class="text-normal" />
-                    <ui:Label id="hud-timer-val" text="00.0" class="text-normal" />
+                    <ui:Label name="hud-timer-val" text="00.0" class="text-normal" />
                 </ui:VisualElement>
-                <ui:Button id="btn-hud-pause" text="II" class="button-secondary" style="margin-left: 10px; width: 40px; padding: 5px;" />
+                <ui:Button name="btn-hud-pause" text="II" class="button-secondary" style="margin-left: 10px; width: 40px; padding: 5px;" />
             </ui:VisualElement>
         </ui:VisualElement>
 
         <!-- GAMEPLAY HINT BANNERS (Popups) -->
-        <ui:VisualElement id="hud-hint-container" class="glass-panel" style="align-self: center; display: none; padding: 12px 24px; position: absolute; top: 80px; width: 60%; background-color: rgba(0, 0, 0, 0.75);">
-            <ui:Label id="hud-hint-text" text="Here is a level hint..." class="text-normal" style="white-space: normal; -unity-text-align: middle-center;" />
+        <ui:VisualElement name="hud-hint-container" class="glass-panel" style="align-self: center; display: none; padding: 12px 24px; position: absolute; top: 80px; width: 60%; background-color: rgba(0, 0, 0, 0.75);">
+            <ui:Label name="hud-hint-text" text="Here is a level hint..." class="text-normal" style="white-space: normal; -unity-text-align: middle-center;" />
         </ui:VisualElement>
 
         <!-- MIDDLE SECTION (For emote floating icons to align above player models) -->
-        <ui:VisualElement id="emote-display-area" style="flex-grow: 1; pointer-events: none;">
+        <ui:VisualElement name="emote-display-area" style="flex-grow: 1; pointer-events: none;">
             <!-- Dynamically populated floating emote containers in code -->
         </ui:VisualElement>
 
@@ -42,40 +42,40 @@
         <ui:VisualElement style="flex-direction: row; justify-content: space-between; padding: 30px; pointer-events: none;">
             
             <!-- Left Side: Touch Joystick Outer circle -->
-            <ui:VisualElement id="joystick-container" class="hud-joystick-touch" style="pointer-events: auto;">
-                <ui:VisualElement id="joystick-handle" class="hud-joystick-handle" />
+            <ui:VisualElement name="joystick-container" class="hud-joystick-touch" style="pointer-events: auto;">
+                <ui:VisualElement name="joystick-handle" class="hud-joystick-handle" />
             </ui:VisualElement>
             
             <!-- Right Side: Interaction & Jump Buttons -->
             <ui:VisualElement style="flex-direction: row; align-items: flex-end; pointer-events: auto;">
                 <!-- Emotes Wheel trigger -->
-                <ui:Button id="btn-hud-emotes" text="☺" class="button-secondary" style="width: 70px; height: 70px; border-radius: 35px; font-size: 30px;" />
+                <ui:Button name="btn-hud-emotes" text="☺" class="button-secondary" style="width: 70px; height: 70px; border-radius: 35px; font-size: 30px;" />
                 
                 <!-- Carry/Throw action -->
-                <ui:Button id="btn-hud-action" text="CARRY" class="button-secondary" style="width: 100px; height: 70px; font-size: 20px; margin-left: 15px;" />
+                <ui:Button name="btn-hud-action" text="CARRY" class="button-secondary" style="width: 100px; height: 70px; font-size: 20px; margin-left: 15px;" />
                 
                 <!-- Jump -->
-                <ui:Button id="btn-hud-jump" text="JUMP" class="button-primary" style="width: 120px; height: 80px; margin-left: 15px; margin-bottom: 0;" />
+                <ui:Button name="btn-hud-jump" text="JUMP" class="button-primary" style="width: 120px; height: 80px; margin-left: 15px; margin-bottom: 0;" />
             </ui:VisualElement>
         </ui:VisualElement>
 
         <!-- EMOTES WHEEL MENU POPUP -->
-        <ui:VisualElement id="emotes-wheel" class="glass-panel" style="position: absolute; bottom: 120px; right: 120px; width: 220px; display: none; pointer-events: auto; padding: 10px;">
+        <ui:VisualElement name="emotes-wheel" class="glass-panel" style="position: absolute; bottom: 120px; right: 120px; width: 220px; display: none; pointer-events: auto; padding: 10px;">
             <ui:Label text="Send Emote" class="text-normal" style="align-self: center; margin-bottom: 8px; font-size: 14px;" />
             <ui:VisualElement style="flex-direction: row; flex-wrap: wrap; justify-content: center;">
-                <ui:Button id="btn-emote-happy" text="☺" class="button-secondary" style="width: 45px; height: 45px; font-size: 20px; margin: 3px;" />
-                <ui:Button id="btn-emote-sad" text="☹" class="button-secondary" style="width: 45px; height: 45px; font-size: 20px; margin: 3px;" />
-                <ui:Button id="btn-emote-surprised" text="😮" class="button-secondary" style="width: 45px; height: 45px; font-size: 20px; margin: 3px;" />
-                <ui:Button id="btn-emote-victory" text="🎉" class="button-secondary" style="width: 45px; height: 45px; font-size: 20px; margin: 3px;" />
+                <ui:Button name="btn-emote-happy" text="☺" class="button-secondary" style="width: 45px; height: 45px; font-size: 20px; margin: 3px;" />
+                <ui:Button name="btn-emote-sad" text="☹" class="button-secondary" style="width: 45px; height: 45px; font-size: 20px; margin: 3px;" />
+                <ui:Button name="btn-emote-surprised" text="😮" class="button-secondary" style="width: 45px; height: 45px; font-size: 20px; margin: 3px;" />
+                <ui:Button name="btn-emote-victory" text="🎉" class="button-secondary" style="width: 45px; height: 45px; font-size: 20px; margin: 3px;" />
             </ui:VisualElement>
         </ui:VisualElement>
 
         <!-- PAUSE / DISCONNECT POPUP -->
-        <ui:VisualElement id="pause-popup" class="glass-panel" style="position: absolute; align-self: center; top: 30%; width: 350px; display: none; pointer-events: auto;">
+        <ui:VisualElement name="pause-popup" class="glass-panel" style="position: absolute; align-self: center; top: 30%; width: 350px; display: none; pointer-events: auto;">
             <ui:Label text="Paused" class="text-header" style="align-self: center; margin-bottom: 20px;" />
-            <ui:Button id="btn-pause-resume" text="Resume" class="button-primary" />
-            <ui:Button id="btn-pause-hint" text="Get Hint" class="button-secondary" />
-            <ui:Button id="btn-pause-quit" text="Quit Level" class="button-secondary" style="background-color: #d9534f; border-color: #d43f3a;" />
+            <ui:Button name="btn-pause-resume" text="Resume" class="button-primary" />
+            <ui:Button name="btn-pause-hint" text="Get Hint" class="button-secondary" />
+            <ui:Button name="btn-pause-quit" text="Quit Level" class="button-secondary" style="background-color: #d9534f; border-color: #d43f3a;" />
         </ui:VisualElement>
 
     </ui:VisualElement>

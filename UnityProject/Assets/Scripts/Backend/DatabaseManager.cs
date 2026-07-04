@@ -55,13 +55,16 @@ namespace PuzzlePals.Backend
             DontDestroyOnLoad(gameObject);
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            FirebaseManager.Instance.OnUserSignedIn += HandleUserSignedIn;
-            FirebaseManager.Instance.OnUserSignedOut += HandleUserSignedOut;
+            if (FirebaseManager.Instance != null)
+            {
+                FirebaseManager.Instance.OnUserSignedIn += HandleUserSignedIn;
+                FirebaseManager.Instance.OnUserSignedOut += HandleUserSignedOut;
+            }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (FirebaseManager.Instance != null)
             {
